@@ -1,6 +1,57 @@
 {
-	"home": "Inicio",
+	"breadcrumb": "Ruta de navegacion",
+	"cart": "Carrito",
+	"cartItems": "Productos en carrito",
 	"demo": "Ejemplo",
+	"detail": "Detalle",
+	"feedback": {
+		"loadError": "No se han podido cargar los datos",
+		"loading": "Cargando",
+		"retry": "Reintentar"
+	},
+	"home": "Inicio",
+	"product": {
+		"actionsTitle": "Opciones",
+		"add": "Añadir",
+		"color": "Color",
+		"descriptionTitle": "Caracteristicas",
+		"fields": {
+			"battery": "Bateria",
+			"brand": "Marca",
+			"cpu": "CPU",
+			"dimensions": "Dimensiones",
+			"displayResolution": "Resolucion de pantalla",
+			"model": "Modelo",
+			"os": "Sistema Operativo",
+			"price": "Precio",
+			"primaryCamera": "Camara principal",
+			"ram": "RAM",
+			"secondaryCamera": "Camara secundaria",
+			"weight": "Peso"
+		},
+		"imageAlt": "{{brand}} {{model}}",
+		"priceUnavailable": "Precio no disponible",
+		"priceWithCurrency": "{{price}} EUR",
+		"storage": "Almacenamiento",
+		"unavailable": "No disponible",
+		"weightWithUnit": "{{weight}} g"
+	},
+	"productDetail": {
+		"backToList": "Volver al listado",
+		"emptyDescription": "Vuelve al listado para elegir otro modelo.",
+		"emptyTitle": "Producto no encontrado",
+		"loading": "Cargando detalle"
+	},
 	"products": "Productos",
-	"cart": "Carrito"
+	"productsPage": {
+		"emptyDescription": "Prueba a recargar la pagina.",
+		"emptyTitle": "No hay productos disponibles",
+		"loading": "Cargando productos",
+		"noResultsDescription": "Busca por otra marca o modelo.",
+		"noResultsTitle": "No hay resultados para la busqueda",
+		"results": "{{count}} productos encontrados",
+		"searchLabel": "Buscar por marca o modelo",
+		"searchPlaceholder": "Ej. Apple, Galaxy...",
+		"title": "Dispositivos moviles"
+	}
 }

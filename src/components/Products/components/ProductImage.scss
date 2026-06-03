@@ -1,0 +1,15 @@
+.product-image {
+	display: grid;
+	place-items: center;
+	min-height: 320px;
+	padding: 1.5rem;
+	border: 1px solid var(--border);
+	border-radius: 8px;
+	background: color-mix(in srgb, var(--fg) 3%, transparent);
+}
+
+.product-image img {
+	width: min(100%, 360px);
+	max-height: 460px;
+	object-fit: contain;
+}
