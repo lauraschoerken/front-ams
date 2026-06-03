@@ -1,13 +1,46 @@
-# 🚀 Proyecto React + Vite
+# Front AMS
 
-Este proyecto usa **React + Vite + TypeScript** con soporte para **i18n**, **theme toggle**, layouts y configuración de entornos.
+Miniaplicacion SPA para compra de dispositivos moviles construida sobre React, Vite y TypeScript.
 
----
+## Estado actual
 
-## 📦 Scripts disponibles
+Bloque 1 completado:
+
+- Rutas SPA base:
+  - `/` para el listado de productos.
+  - `/product/:id` para el detalle de producto.
+- Layout principal con Header y Breadcrumbs.
+- El logo/titulo del Header navega a `/`.
+- Navegacion principal hacia productos.
+- Placeholder inicial para el contador de carrito en Header.
+
+## Scripts
 
 ```bash
-npm run dev       # Levanta en modo dev con enviroments/dev/.env.dev
-npm run build     # Compila en modo producción con enviroments/prod/.env.prod
-npm run preview   # Previsualiza la build
-npm run lint      # Linter con ESLint + reglas de import order
+npm run dev
+npm run build
+npm run lint
+npm run preview
+```
+
+El proyecto conserva los nombres existentes. `dev` levanta Vite en modo desarrollo y `build`
+compila TypeScript y genera la build de produccion.
+
+## Estructura prevista
+
+```txt
+src/
+  components/
+    Products/
+      components/
+      containers/
+    elements/
+      Breadcrumbs/
+  layouts/
+  navigation/
+  services/
+  storage/
+  models/
+```
+
+Los siguientes bloques incorporaran la capa API, cache cliente, PLP, PDP, carrito y tests.

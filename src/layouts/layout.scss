@@ -30,6 +30,7 @@
 	display: flex;
 	gap: 1rem;
 	align-items: center;
+	flex-wrap: wrap;
 }
 
 .link {
@@ -47,6 +48,11 @@
 	flex: 1;
 	padding: 1rem;
 	background: var(--bg);
+	color: var(--fg);
+}
+
+.cart-indicator {
+	font-weight: 600;
 	color: var(--fg);
 }
 

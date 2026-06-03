@@ -19,11 +19,11 @@ export const Header = () => {
 				</Link>
 				<nav className='nav'>
 					<NavLink to='/' end className={({ isActive }) => (isActive ? active : 'link')}>
-						{t('home')}
+						{t('products')}
 					</NavLink>
-					<NavLink to='/demo' className={({ isActive }) => (isActive ? active : 'link')}>
-						{t('demo')}
-					</NavLink>
+					<span className='cart-indicator' aria-label='Productos en carrito'>
+						{t('cart')}: 0
+					</span>
 					<ThemeToggle />
 					<LanguageSelect />
 				</nav>
