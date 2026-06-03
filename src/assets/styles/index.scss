@@ -1,4 +1,5 @@
 @use './_mixins' as *;
+@use '@/components/elements/Feedback/Feedback';
 
 :root {
 	@include theme-light();
