@@ -2,18 +2,6 @@
 
 Miniaplicacion SPA para compra de dispositivos moviles construida sobre React, Vite y TypeScript.
 
-## Estado actual
-
-Bloque 1 completado:
-
-- Rutas SPA base:
-  - `/` para el listado de productos.
-  - `/product/:id` para el detalle de producto.
-- Layout principal con Header y Breadcrumbs.
-- El logo/titulo del Header navega a `/`.
-- Navegacion principal hacia productos.
-- Placeholder inicial para el contador de carrito en Header.
-
 ## Scripts
 
 ```bash
@@ -44,3 +32,19 @@ src/
 ```
 
 Los siguientes bloques incorporaran la capa API, cache cliente, PLP, PDP, carrito y tests.
+
+## API y cache
+
+La API base se configura con `VITE_API_BASE`.
+
+```txt
+VITE_API_BASE=https://itx-frontend-test.onrender.com
+```
+
+Los servicios guardan en cache las respuestas de lectura:
+
+- `GET /api/product`
+- `GET /api/product/:id`
+
+La cache vive en `localStorage`, expira tras 1 hora y se invalida automaticamente al leerse
+si ha caducado. `POST /api/cart` no se cachea.
