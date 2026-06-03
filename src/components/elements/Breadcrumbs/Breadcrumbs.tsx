@@ -1,29 +1,31 @@
 import './Breadcrumbs.scss'
 
+import { useTranslation } from 'react-i18next'
 import { Link, useLocation } from 'react-router-dom'
 
-const routeLabels: Record<string, string> = {
-	'/': 'Productos',
-	'/demo': 'Demo',
-}
-
-const getBreadcrumbs = (pathname: string) => {
+const getBreadcrumbs = (pathname: string, labels: Record<string, string>) => {
 	if (pathname.startsWith('/product/')) {
 		return [
-			{ label: routeLabels['/'], to: '/' },
-			{ label: 'Detalle', to: pathname },
+			{ label: labels.products, to: '/' },
+			{ label: labels.detail, to: pathname },
 		]
 	}
 
-	return [{ label: routeLabels[pathname] ?? 'Productos', to: pathname }]
+	return [{ label: labels[pathname] ?? labels.products, to: pathname }]
 }
 
 export const Breadcrumbs = () => {
+	const { t } = useTranslation()
 	const { pathname } = useLocation()
-	const breadcrumbs = getBreadcrumbs(pathname)
+	const breadcrumbs = getBreadcrumbs(pathname, {
+		'/': t('products'),
+		'/demo': t('demo'),
+		detail: t('detail'),
+		products: t('products'),
+	})
 
 	return (
-		<nav className='breadcrumbs' aria-label='Breadcrumb'>
+		<nav className='breadcrumbs' aria-label={t('breadcrumb')}>
 			<ol className='breadcrumbs__list'>
 				{breadcrumbs.map((breadcrumb, index) => {
 					const isLast = index === breadcrumbs.length - 1

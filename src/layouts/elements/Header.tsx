@@ -21,7 +21,7 @@ export const Header = () => {
 					<NavLink to='/' end className={({ isActive }) => (isActive ? active : 'link')}>
 						{t('products')}
 					</NavLink>
-					<span className='cart-indicator' aria-label='Productos en carrito'>
+					<span className='cart-indicator' aria-label={t('cartItems')}>
 						{t('cart')}: 0
 					</span>
 					<ThemeToggle />

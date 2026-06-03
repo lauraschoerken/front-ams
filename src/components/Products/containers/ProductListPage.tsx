@@ -1,6 +1,7 @@
 import '../components/ProductList.scss'
 
 import { useEffect, useMemo, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import { EmptyState, ErrorState, LoadingState } from '@/components/elements'
 import type { ProductSummary } from '@/models/product'
@@ -19,6 +20,7 @@ const filterProducts = (products: ProductSummary[], search: string) => {
 }
 
 export const ProductListPage = () => {
+	const { t } = useTranslation()
 	const [products, setProducts] = useState<ProductSummary[]>([])
 	const [search, setSearch] = useState('')
 	const [loading, setLoading] = useState(false)
@@ -57,24 +59,29 @@ export const ProductListPage = () => {
 		<section className='products-page'>
 			<header className='products-page__header'>
 				<div>
-					<h1 className='products-page__title'>Dispositivos moviles</h1>
-					<p className='products-page__subtitle'>{filteredProducts.length} productos encontrados</p>
+					<h1 className='products-page__title'>{t('productsPage.title')}</h1>
+					<p className='products-page__subtitle'>
+						{t('productsPage.results', { count: filteredProducts.length })}
+					</p>
 				</div>
 				<Search value={search} onChange={setSearch} />
 			</header>
 
-			{loading && !hasProducts && <LoadingState label='Cargando productos' />}
+			{loading && !hasProducts && <LoadingState label={t('productsPage.loading')} />}
 
 			{error && !hasProducts && <ErrorState message={error} onRetry={() => void loadProducts()} />}
 
 			{!loading && !error && !hasProducts && (
-				<EmptyState title='No hay productos disponibles' description='Prueba a recargar la pagina.' />
+				<EmptyState
+					title={t('productsPage.emptyTitle')}
+					description={t('productsPage.emptyDescription')}
+				/>
 			)}
 
 			{hasProducts && !hasFilteredProducts && (
 				<EmptyState
-					title='No hay resultados para la busqueda'
-					description='Busca por otra marca o modelo.'
+					title={t('productsPage.noResultsTitle')}
+					description={t('productsPage.noResultsDescription')}
 				/>
 			)}
 
