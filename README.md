@@ -9,6 +9,7 @@ npm run dev
 npm run build
 npm run lint
 npm run preview
+npm run test
 ```
 
 El proyecto conserva los nombres existentes. `dev` levanta Vite en modo desarrollo y `build`
@@ -31,7 +32,6 @@ src/
   models/
 ```
 
-Los siguientes bloques incorporaran la capa API, cache cliente, PLP, PDP, carrito y tests.
 
 ## API y cache
 
@@ -48,3 +48,9 @@ Los servicios guardan en cache las respuestas de lectura:
 
 La cache vive en `localStorage`, expira tras 1 hora y se invalida automaticamente al leerse
 si ha caducado. `POST /api/cart` no se cachea.
+
+## Carrito
+
+El contador del carrito se guarda en `localStorage` y se rehidrata al iniciar la aplicacion.
+Al pulsar `Añadir`, la PDP envia `id`, `colorCode` y `storageCode` a `POST /api/cart`; el
+`count` devuelto por la API actualiza el Header.

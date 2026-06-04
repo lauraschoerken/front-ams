@@ -9,15 +9,7 @@ import { getProducts } from '@/services/products'
 
 import { ProductGrid } from '../components/ProductGrid'
 import { Search } from '../components/Search'
-
-const filterProducts = (products: ProductSummary[], search: string) => {
-	const normalizedSearch = search.trim().toLowerCase()
-	if (!normalizedSearch) return products
-
-	return products.filter((product) =>
-		`${product.brand} ${product.model}`.toLowerCase().includes(normalizedSearch)
-	)
-}
+import { filterProducts } from '../utils/filterProducts'
 
 export const ProductListPage = () => {
 	const { t } = useTranslation()

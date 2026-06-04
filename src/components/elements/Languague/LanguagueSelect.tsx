@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next'
 import { AVAILABLE_LANGS } from '@/utils/constants'
 
 const LanguageSelect = () => {
-	const { i18n } = useTranslation()
+	const { i18n, t } = useTranslation()
 	const initial = i18n.language?.split('-')[0] || 'es'
 	const [open, setOpen] = useState(false)
 	const [active, setActive] = useState(initial)
@@ -64,7 +64,7 @@ const LanguageSelect = () => {
 			<button
 				type='button'
 				className='cselect__button'
-				aria-label='Seleccionar idioma'
+				aria-label={t('languageSelect')}
 				aria-controls='lang-listbox'
 				aria-expanded={open}
 				onClick={() => setOpen((o) => !o)}>

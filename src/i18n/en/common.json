@@ -15,6 +15,7 @@
 		"retry": "Retry"
 	},
 	"home": "Home",
+	"languageSelect": "Select language",
 	"product": {
 		"actionsTitle": "Options",
 		"add": "Add",
@@ -59,5 +60,6 @@
 		"searchLabel": "Search by brand or model",
 		"searchPlaceholder": "E.g. Apple, Galaxy...",
 		"title": "Mobile devices"
-	}
+	},
+	"themeToggle": "Change theme"
 }
