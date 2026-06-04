@@ -1,7 +1,12 @@
 {
 	"breadcrumb": "Breadcrumb",
+	"close": "Close",
 	"cart": "Cart",
 	"cartItems": "Cart items",
+	"cartAdd": {
+		"error": "The product could not be added to the cart",
+		"success": "Product added to cart"
+	},
 	"demo": "Demo",
 	"detail": "Detail",
 	"feedback": {
@@ -13,6 +18,7 @@
 	"product": {
 		"actionsTitle": "Options",
 		"add": "Add",
+		"adding": "Adding",
 		"color": "Color",
 		"descriptionTitle": "Specifications",
 		"fields": {

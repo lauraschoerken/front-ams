@@ -3,6 +3,7 @@ import '../layout.scss'
 import { useTranslation } from 'react-i18next'
 import { Link, NavLink } from 'react-router-dom'
 
+import { useCart } from '@/components/Cart/context/CartContext'
 import LanguageSelect from '@/components/elements/Languague/LanguagueSelect'
 import { ThemeToggle } from '@/components/elements/Theme/ThemeToggle'
 import { APP_NAME } from '@/utils/constants'
@@ -10,6 +11,7 @@ import { APP_NAME } from '@/utils/constants'
 export const Header = () => {
 	const active = 'link-active'
 	const { t } = useTranslation()
+	const { count } = useCart()
 
 	return (
 		<header className='header'>
@@ -22,7 +24,7 @@ export const Header = () => {
 						{t('products')}
 					</NavLink>
 					<span className='cart-indicator' aria-label={t('cartItems')}>
-						{t('cart')}: 0
+						{t('cart')}: {count}
 					</span>
 					<ThemeToggle />
 					<LanguageSelect />

@@ -1,7 +1,12 @@
 {
 	"breadcrumb": "Ruta de navegacion",
+	"close": "Cerrar",
 	"cart": "Carrito",
 	"cartItems": "Productos en carrito",
+	"cartAdd": {
+		"error": "No se ha podido añadir el producto al carrito",
+		"success": "Producto añadido al carrito"
+	},
 	"demo": "Ejemplo",
 	"detail": "Detalle",
 	"feedback": {
@@ -13,6 +18,7 @@
 	"product": {
 		"actionsTitle": "Opciones",
 		"add": "Añadir",
+		"adding": "Añadiendo",
 		"color": "Color",
 		"descriptionTitle": "Caracteristicas",
 		"fields": {

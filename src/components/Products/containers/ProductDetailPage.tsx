@@ -2,7 +2,7 @@ import '../components/ProductDetail.scss'
 
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Link, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 
 import { EmptyState, ErrorState, LoadingState } from '@/components/elements'
 import type { ProductDetail } from '@/models/product'
@@ -75,12 +75,7 @@ export const ProductDetailPage = () => {
 						</header>
 
 						<ProductDescription product={product} />
-						<ProductActions
-							options={product.options}
-							onAdd={(selection) => {
-								console.info('Producto preparado para carrito', { id: product.id, ...selection })
-							}}
-						/>
+						<ProductActions productId={product.id} options={product.options} />
 					</div>
 				</div>
 			)}

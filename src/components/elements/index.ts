@@ -1,3 +1,4 @@
+export { Alert } from './Alert/Alert'
 export { Breadcrumbs } from './Breadcrumbs/Breadcrumbs'
 export { Card } from './Card/Card'
 export { EmptyState } from './Feedback/EmptyState'
