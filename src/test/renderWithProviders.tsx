@@ -1,12 +1,12 @@
 import { render, type RenderOptions } from '@testing-library/react'
 import type { ReactElement, ReactNode } from 'react'
 import { I18nextProvider } from 'react-i18next'
-import { MemoryRouter } from 'react-router-dom'
+import { MemoryRouter, type MemoryRouterProps } from 'react-router-dom'
 
 import i18n from '@/i18n/i18n'
 
 interface ProviderOptions extends Omit<RenderOptions, 'wrapper'> {
-	initialEntries?: string[]
+	initialEntries?: MemoryRouterProps['initialEntries']
 }
 
 export const renderWithProviders = (

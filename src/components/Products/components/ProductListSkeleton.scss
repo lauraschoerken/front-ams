@@ -1,0 +1,123 @@
+.product-list-skeleton {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: clamp(0.75rem, 1.2vw, 1rem);
+}
+
+.product-list-skeleton__card {
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+	border: 1px solid var(--border);
+	border-radius: 8px;
+	background: var(--bg);
+}
+
+.product-list-skeleton__image {
+	height: 210px;
+}
+
+.product-list-skeleton__content {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) auto;
+	gap: 0.75rem;
+	align-items: center;
+	padding: 0.8rem 1rem;
+	border-top: 1px solid var(--border);
+}
+
+.product-list-skeleton__text {
+	display: flex;
+	flex-direction: column;
+	gap: 0.4rem;
+}
+
+.product-list-skeleton__block {
+	background: linear-gradient(
+		90deg,
+		color-mix(in srgb, var(--fg) 5%, transparent) 25%,
+		color-mix(in srgb, var(--fg) 13%, transparent) 50%,
+		color-mix(in srgb, var(--fg) 5%, transparent) 75%
+	);
+	background-size: 300% 100%;
+	animation: product-list-skeleton-shimmer 1.4s linear infinite;
+}
+
+.product-list-skeleton__line {
+	height: 13px;
+	border-radius: 6px;
+}
+
+.product-list-skeleton__line--brand {
+	width: 35%;
+	height: 10px;
+}
+
+.product-list-skeleton__line--model {
+	width: 75%;
+}
+
+.product-list-skeleton__line--price {
+	width: 65px;
+}
+
+@keyframes product-list-skeleton-shimmer {
+	to {
+		background-position: -300% 0;
+	}
+}
+
+@media (min-width: 520px) {
+	.product-list-skeleton {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+}
+
+@media (min-width: 520px) and (max-width: 1099px) {
+	.product-list-skeleton__image {
+		height: 190px;
+	}
+}
+
+@media (min-width: 820px) {
+	.product-list-skeleton {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+}
+
+@media (min-width: 1100px) {
+	.product-list-skeleton {
+		grid-template-columns: repeat(4, minmax(0, 1fr));
+	}
+}
+
+@media (max-width: 519px) {
+	.product-list-skeleton__card {
+		display: grid;
+		grid-template-columns: minmax(110px, 38%) 1fr;
+	}
+
+	.product-list-skeleton__image {
+		height: 145px;
+	}
+
+	.product-list-skeleton__content {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		justify-content: center;
+		border-top: 0;
+		border-left: 1px solid var(--border);
+	}
+
+	.product-list-skeleton__text,
+	.product-list-skeleton__line--model {
+		width: 100%;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.product-list-skeleton__block {
+		animation: none;
+	}
+}

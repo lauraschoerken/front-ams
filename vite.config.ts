@@ -21,7 +21,7 @@ export default defineConfig(({ mode }) => {
 		resolve: { alias: { '@': path.resolve(__dirname, 'src') } },
 
 		define: {
-			__APP_NAME__: JSON.stringify(env.VITE_APP_NAME ?? 'App'),
+			__APP_NAME__: JSON.stringify(env.VITE_APP_NAME ?? 'AMS Mobile Store'),
 		},
 	}
 })

@@ -1,15 +1,14 @@
 .products-page {
 	display: flex;
 	flex-direction: column;
-	gap: 1.25rem;
+	gap: clamp(1rem, 2vw, 1.5rem);
 }
 
 .products-page__header {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 1rem;
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) minmax(280px, 480px);
+	gap: 1.5rem;
 	align-items: flex-end;
-	justify-content: space-between;
 }
 
 .products-page__title {
@@ -20,4 +19,11 @@
 .products-page__subtitle {
 	margin: 0;
 	opacity: 0.75;
+}
+
+@media (max-width: 760px) {
+	.products-page__header {
+		grid-template-columns: 1fr;
+		gap: 1rem;
+	}
 }

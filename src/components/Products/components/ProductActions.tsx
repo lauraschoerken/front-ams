@@ -1,5 +1,6 @@
 import './ProductActions.scss'
 
+import { LoaderCircle, ShoppingCart } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -11,6 +12,8 @@ interface ProductActionsProps {
 	productId: string
 	options: ProductOptions
 	disabled?: boolean
+	onSuccess?: () => void
+	showSuccessAlert?: boolean
 }
 
 const getDefaultOption = (options: ProductOption[]) => options[0]?.code
@@ -19,6 +22,8 @@ export const ProductActions = ({
 	productId,
 	options,
 	disabled = false,
+	onSuccess,
+	showSuccessAlert = true,
 }: ProductActionsProps) => {
 	const { t } = useTranslation()
 	const { addItem } = useCart()
@@ -46,7 +51,8 @@ export const ProductActions = ({
 
 		try {
 			await addItem({ id: productId, colorCode, storageCode })
-			setSuccess(true)
+			setSuccess(showSuccessAlert)
+			onSuccess?.()
 		} catch (error) {
 			setError(error instanceof Error ? error.message : t('cartAdd.error'))
 		} finally {
@@ -57,46 +63,71 @@ export const ProductActions = ({
 	return (
 		<>
 			<section className='product-actions' aria-labelledby='product-actions-title'>
-				<h2 id='product-actions-title'>{t('product.actionsTitle')}</h2>
+				<div className='product-actions__options'>
+					<h2 id='product-actions-title'>{t('product.actionsTitle')}</h2>
 
-				<label className='product-actions__field'>
-					<span>{t('product.storage')}</span>
-					<select
-						value={storageCode ?? ''}
-						onChange={(event) => setStorageCode(Number(event.target.value))}
-						disabled={options.storages.length <= 1 || disabled || isSubmitting}>
-						{options.storages.map((storage) => (
-							<option key={storage.code} value={storage.code}>
-								{storage.name}
-							</option>
-						))}
-					</select>
-				</label>
+					<fieldset className='product-actions__field'>
+						<legend>
+							{t('product.storage')}:
+							<strong>
+								{options.storages.find((storage) => storage.code === storageCode)?.name}
+							</strong>
+						</legend>
+						<div className='product-actions__choices'>
+							{options.storages.map((storage) => (
+								<button
+									className='product-actions__choice'
+									type='button'
+									aria-pressed={storage.code === storageCode}
+									disabled={disabled || isSubmitting}
+									key={storage.code}
+									onClick={() => setStorageCode(storage.code)}>
+									{storage.name}
+								</button>
+							))}
+						</div>
+					</fieldset>
 
-				<label className='product-actions__field'>
-					<span>{t('product.color')}</span>
-					<select
-						value={colorCode ?? ''}
-						onChange={(event) => setColorCode(Number(event.target.value))}
-						disabled={options.colors.length <= 1 || disabled || isSubmitting}>
-						{options.colors.map((color) => (
-							<option key={color.code} value={color.code}>
-								{color.name}
-							</option>
-						))}
-					</select>
-				</label>
+					<fieldset className='product-actions__field'>
+						<legend>
+							{t('product.color')}:
+							<strong>{options.colors.find((color) => color.code === colorCode)?.name}</strong>
+						</legend>
+						<div className='product-actions__choices'>
+							{options.colors.map((color) => (
+								<button
+									className='product-actions__choice'
+									type='button'
+									aria-pressed={color.code === colorCode}
+									disabled={disabled || isSubmitting}
+									key={color.code}
+									onClick={() => setColorCode(color.code)}>
+									{color.name}
+								</button>
+							))}
+						</div>
+					</fieldset>
+				</div>
 
 				<button
 					className='product-actions__button'
 					type='button'
 					disabled={!canAdd}
-					onClick={() => void handleAddToCart()}>
-					{isSubmitting ? t('product.adding') : t('product.add')}
+					onClick={() => void handleAddToCart()}
+					aria-label={isSubmitting ? t('product.adding') : t('product.add')}
+					title={isSubmitting ? t('product.adding') : t('product.add')}>
+					{isSubmitting ? (
+						<LoaderCircle className='product-actions__button-icon product-actions__button-icon--loading' />
+					) : (
+						<ShoppingCart className='product-actions__button-icon' />
+					)}
+					<span>{isSubmitting ? t('product.adding') : t('product.add')}</span>
 				</button>
 			</section>
 
-			{success && <Alert onClose={() => setSuccess(false)}>{t('cartAdd.success')}</Alert>}
+			{success && showSuccessAlert && (
+				<Alert onClose={() => setSuccess(false)}>{t('cartAdd.success')}</Alert>
+			)}
 			{error && (
 				<Alert variant='error' onClose={() => setError(undefined)}>
 					{error}

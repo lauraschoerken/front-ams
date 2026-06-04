@@ -23,11 +23,10 @@ export const Alert = ({ children, variant = 'success', onClose, autoCloseMs = 10
 
 	return (
 		<div className={`alert alert--${variant}`} role={variant === 'error' ? 'alert' : 'status'}>
+			<span className='alert__indicator' aria-hidden='true' />
 			<p>{children}</p>
 			{onClose && (
-				<button type='button' className='alert__close' onClick={onClose} aria-label={t('close')}>
-					×
-				</button>
+				<button type='button' className='alert__close' onClick={onClose} aria-label={t('close')} />
 			)}
 		</div>
 	)

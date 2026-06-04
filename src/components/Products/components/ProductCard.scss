@@ -1,4 +1,5 @@
 .product-card {
+	position: relative;
 	display: flex;
 	flex-direction: column;
 	min-height: 100%;
@@ -18,32 +19,81 @@
 		box-shadow: 0 8px 18px rgba(0, 0, 0, 0.14);
 	}
 
-	&:focus-visible {
-		outline: 2px solid var(--btn-primary-bg);
-		outline-offset: 3px;
-	}
+}
+
+.product-card__link {
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+	min-width: 0;
+	color: inherit;
+	text-decoration: none;
+}
+
+.product-card__link:focus-visible,
+.product-card__quick-add:focus-visible {
+	outline: 2px solid var(--btn-primary-bg);
+	outline-offset: 3px;
+}
+
+.product-card__quick-add {
+	position: absolute;
+	bottom: 0.7rem;
+	right: 0.65rem;
+	z-index: 1;
+	display: grid;
+	place-items: center;
+	width: 2.25rem;
+	height: 2.25rem;
+	padding: 0;
+	border: 1px solid var(--border);
+	border-radius: 6px;
+	background: var(--bg);
+	color: var(--fg);
+	cursor: pointer;
+	transition:
+		background 0.18s ease,
+		color 0.18s ease,
+		transform 0.18s ease;
+}
+
+.product-card__quick-add:hover {
+	background: var(--btn-primary-bg);
+	color: var(--btn-primary-fg);
+	transform: scale(1.05);
+}
+
+.product-card__quick-add svg {
+	width: 1.15rem;
+	height: 1.15rem;
 }
 
 .product-card__image-wrap {
 	display: grid;
 	place-items: center;
-	aspect-ratio: 1 / 1;
-	padding: 1rem;
-	background: color-mix(in srgb, var(--fg) 3%, transparent);
+	height: 210px;
+	overflow: hidden;
+	padding: 0.75rem;
+	background: color-mix(in srgb, var(--fg) 2%, transparent);
 }
 
 .product-card__image {
-	max-width: 100%;
-	max-height: 100%;
+	display: block;
+	width: 100%;
+	height: 100%;
+	min-width: 0;
+	min-height: 0;
 	object-fit: contain;
 }
 
 .product-card__content {
-	display: flex;
-	flex: 1;
-	flex-direction: column;
-	gap: 0.4rem;
-	padding: 1rem;
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) auto;
+	grid-template-rows: auto auto;
+	gap: 0.2rem 0.75rem;
+	align-items: center;
+	padding: 0.8rem 3.7rem 0.8rem 1rem;
+	border-top: 1px solid var(--border);
 }
 
 .product-card__brand,
@@ -53,18 +103,73 @@
 }
 
 .product-card__brand {
+	grid-column: 1;
+	grid-row: 1;
+	font-size: 0.75rem;
 	text-transform: uppercase;
 	letter-spacing: 0;
-	opacity: 0.72;
+	opacity: 0.62;
 }
 
 .product-card__model {
+	grid-column: 1;
+	grid-row: 2;
+	overflow: hidden;
 	margin: 0;
 	font-size: 1rem;
 	line-height: 1.3;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 
 .product-card__price {
-	margin-top: auto;
+	grid-column: 2;
+	grid-row: 1 / span 2;
+	max-width: 120px;
 	font-weight: 700;
+	text-align: right;
+}
+
+@media (min-width: 520px) and (max-width: 1099px) {
+	.product-card__image-wrap {
+		height: 190px;
+	}
+}
+
+@media (max-width: 519px) {
+	.product-card {
+		display: block;
+	}
+
+	.product-card__link {
+		display: grid;
+		grid-template-columns: minmax(110px, 38%) 1fr;
+	}
+
+	.product-card__image-wrap {
+		width: 100%;
+		height: 145px;
+		min-height: 0;
+		padding: 0.5rem;
+	}
+
+	.product-card__content {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 0.25rem;
+		align-content: center;
+		padding: 0.75rem 3.5rem 0.75rem 0.75rem;
+	}
+
+	.product-card__model {
+		width: 100%;
+		white-space: normal;
+	}
+
+	.product-card__price {
+		max-width: none;
+		margin-top: 0.2rem;
+		text-align: left;
+	}
 }

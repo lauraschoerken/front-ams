@@ -1,7 +1,7 @@
 .breadcrumbs {
-	margin-bottom: 1rem;
-	font-size: 0.9rem;
+	padding-bottom: 0.65rem;
 	color: var(--fg);
+	font-size: 0.8rem;
 }
 
 .breadcrumbs__list {
@@ -18,16 +18,17 @@
 	display: flex;
 	gap: 0.5rem;
 	align-items: center;
-	opacity: 0.8;
+	opacity: 0.62;
 
 	&:not(:last-child)::after {
 		content: '/';
-		opacity: 0.55;
+		opacity: 0.5;
 	}
 
 	a {
 		color: inherit;
 		text-decoration: none;
+		font-weight: 600;
 
 		&:hover {
 			text-decoration: underline;

@@ -1,19 +1,24 @@
 import '../layout.scss'
 
-import { Outlet } from 'react-router-dom'
-
-import { Breadcrumbs } from '@/components/elements'
+import { useEffect, useState } from 'react'
+import { Outlet, useLocation } from 'react-router-dom'
 
 import { Footer } from '../elements/Footer'
 import { Header } from '../elements/Header'
 
 export const MainLayout = () => {
+	const { pathname } = useLocation()
+	const [productDetailLabel, setProductDetailLabel] = useState<string | undefined>()
+
+	useEffect(() => {
+		setProductDetailLabel(undefined)
+	}, [pathname])
+
 	return (
 		<div className='main-layout'>
-			<Header />
+			<Header productDetailLabel={productDetailLabel} />
 			<main className='main container'>
-				<Breadcrumbs />
-				<Outlet />
+				<Outlet context={{ setProductDetailLabel }} />
 			</main>
 			<Footer />
 		</div>

@@ -5,10 +5,15 @@ interface CachedItem<T> {
 	expiresAt: number
 }
 
+export interface CacheEntry<T> {
+	value: T
+	isStale: boolean
+}
+
 const isStorageAvailable = () => typeof window !== 'undefined' && Boolean(window.localStorage)
 
 export const cacheStorage = {
-	get<T>(key: string): T | undefined {
+	getEntry<T>(key: string): CacheEntry<T> | undefined {
 		if (!isStorageAvailable()) return undefined
 
 		try {
@@ -16,16 +21,19 @@ export const cacheStorage = {
 			if (!rawValue) return undefined
 
 			const cachedItem = JSON.parse(rawValue) as CachedItem<T>
-			if (Date.now() > cachedItem.expiresAt) {
-				window.localStorage.removeItem(key)
-				return undefined
+			return {
+				value: cachedItem.value,
+				isStale: Date.now() > cachedItem.expiresAt,
 			}
-
-			return cachedItem.value
 		} catch {
 			window.localStorage.removeItem(key)
 			return undefined
 		}
+	},
+
+	get<T>(key: string): T | undefined {
+		const entry = this.getEntry<T>(key)
+		return entry && !entry.isStale ? entry.value : undefined
 	},
 
 	set<T>(key: string, value: T, ttl = DEFAULT_TTL) {

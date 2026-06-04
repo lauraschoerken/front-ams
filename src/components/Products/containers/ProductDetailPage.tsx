@@ -2,19 +2,25 @@ import '../components/ProductDetail.scss'
 
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useParams } from 'react-router-dom'
+import { useOutletContext, useParams } from 'react-router-dom'
 
-import { EmptyState, ErrorState, LoadingState } from '@/components/elements'
+import { EmptyState, ErrorState } from '@/components/elements'
 import type { ProductDetail } from '@/models/product'
 import { getProductById } from '@/services/products'
 
 import { ProductActions } from '../components/ProductActions'
 import { ProductDescription } from '../components/ProductDescription'
+import { ProductDetailSkeleton } from '../components/ProductDetailSkeleton'
 import { ProductImage } from '../components/ProductImage'
+
+interface MainLayoutContext {
+	setProductDetailLabel: (label?: string) => void
+}
 
 export const ProductDetailPage = () => {
 	const { t } = useTranslation()
 	const { id } = useParams()
+	const { setProductDetailLabel } = useOutletContext<MainLayoutContext>()
 	const [product, setProduct] = useState<ProductDetail | undefined>()
 	const [loading, setLoading] = useState(false)
 	const [error, setError] = useState<string | undefined>()
@@ -25,7 +31,8 @@ export const ProductDetailPage = () => {
 		setLoading(true)
 		setError(undefined)
 
-		const { data, error } = await getProductById(id, signal)
+		const { data, error } = await getProductById(id, signal, setProduct)
+		if (signal?.aborted) return
 
 		if (data) {
 			setProduct(data)
@@ -45,9 +52,15 @@ export const ProductDetailPage = () => {
 		return () => controller.abort()
 	}, [id])
 
+	useEffect(() => {
+		setProductDetailLabel(product ? `${product.brand} ${product.model}` : undefined)
+
+		return () => setProductDetailLabel(undefined)
+	}, [product, setProductDetailLabel])
+
 	return (
 		<section className='product-detail-page'>
-			{loading && !product && <LoadingState label={t('productDetail.loading')} />}
+			{loading && !product && <ProductDetailSkeleton label={t('productDetail.loading')} />}
 
 			{error && !product && <ErrorState message={error} onRetry={() => void loadProduct()} />}
 
@@ -68,10 +81,12 @@ export const ProductDetailPage = () => {
 					<div className='product-detail-page__content'>
 						<header className='product-detail-page__header'>
 							<p className='product-detail-page__brand'>{product.brand}</p>
-							<h1 className='product-detail-page__title'>{product.model}</h1>
-							<p className='product-detail-page__price'>
-								{t('product.priceWithCurrency', { price: product.price })}
-							</p>
+							<div className='product-detail-page__heading'>
+								<h1 className='product-detail-page__title'>{product.model}</h1>
+								<p className='product-detail-page__price'>
+									{t('product.priceWithCurrency', { price: product.price })}
+								</p>
+							</div>
 						</header>
 
 						<ProductDescription product={product} />

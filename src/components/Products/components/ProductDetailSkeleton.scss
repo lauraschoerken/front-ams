@@ -1,0 +1,141 @@
+.product-detail-skeleton {
+	display: grid;
+	grid-template-columns: minmax(300px, 0.8fr) minmax(0, 1.2fr);
+	gap: clamp(1.25rem, 3vw, 3rem);
+	align-items: start;
+}
+
+.product-detail-skeleton__image {
+	min-height: clamp(280px, 45vw, 560px);
+	border-radius: 8px;
+}
+
+.product-detail-skeleton__content,
+.product-detail-skeleton__header,
+.product-detail-skeleton__description,
+.product-detail-skeleton__actions {
+	display: flex;
+	flex-direction: column;
+	gap: 0.85rem;
+}
+
+.product-detail-skeleton__description,
+.product-detail-skeleton__actions {
+	padding: 1rem;
+	border: 1px solid var(--border);
+	border-radius: 8px;
+}
+
+.product-detail-skeleton__row {
+	display: grid;
+	grid-template-columns: minmax(150px, 0.35fr) 1fr;
+	gap: 1rem;
+	padding-block: 0.35rem;
+}
+
+.product-detail-skeleton__rows {
+	display: grid;
+	gap: 0.7rem;
+}
+
+.product-detail-skeleton__heading {
+	display: flex;
+	gap: 1.5rem;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.product-detail-skeleton__block {
+	background: linear-gradient(
+		90deg,
+		color-mix(in srgb, var(--fg) 5%, transparent) 25%,
+		color-mix(in srgb, var(--fg) 13%, transparent) 50%,
+		color-mix(in srgb, var(--fg) 5%, transparent) 75%
+	);
+	background-size: 300% 100%;
+	animation: product-skeleton-shimmer 1.4s linear infinite;
+}
+
+.product-detail-skeleton__line {
+	height: 14px;
+	border-radius: 6px;
+}
+
+.product-detail-skeleton__line--brand,
+.product-detail-skeleton__line--price {
+	width: 25%;
+}
+
+.product-detail-skeleton__line--title {
+	width: 55%;
+	height: 34px;
+}
+
+.product-detail-skeleton__line--price {
+	width: 90px;
+}
+
+.product-detail-skeleton__line--section {
+	width: 30%;
+	height: 20px;
+}
+
+.product-detail-skeleton__line--label {
+	width: 70%;
+}
+
+.product-detail-skeleton__line--value {
+	width: 85%;
+}
+
+.product-detail-skeleton__control {
+	height: 42px;
+	border-radius: 8px;
+}
+
+.product-detail-skeleton__button {
+	height: 44px;
+	border-radius: 8px;
+}
+
+@keyframes product-skeleton-shimmer {
+	to {
+		background-position: -300% 0;
+	}
+}
+
+@media (min-width: 1200px) {
+	.product-detail-skeleton {
+		grid-template-columns: minmax(340px, 0.65fr) minmax(600px, 1.35fr);
+	}
+}
+
+@media (min-width: 1400px) {
+	.product-detail-skeleton__rows {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		column-gap: 2rem;
+	}
+}
+
+@media (max-width: 900px) {
+	.product-detail-skeleton {
+		grid-template-columns: 1fr;
+	}
+
+	.product-detail-skeleton__image {
+		min-height: 300px;
+	}
+}
+
+@media (max-width: 560px) {
+	.product-detail-skeleton__row {
+		grid-template-columns: 1fr;
+		gap: 0.35rem;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.product-detail-skeleton__block {
+		animation: none;
+	}
+}

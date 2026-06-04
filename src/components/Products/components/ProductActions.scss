@@ -1,41 +1,85 @@
 .product-actions {
 	display: flex;
 	flex-direction: column;
-	gap: 0.9rem;
-	padding: 1rem;
-	border: 1px solid var(--border);
-	border-radius: 8px;
+	gap: 1rem;
+	align-items: flex-start;
+	padding-block: 0.25rem;
 }
 
-.product-actions h2 {
+.product-actions__options {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	min-width: 0;
+}
+
+.product-actions__options h2 {
 	margin: 0;
 	font-size: 1.2rem;
 }
 
 .product-actions__field {
-	display: flex;
-	flex-direction: column;
-	gap: 0.4rem;
-	font-weight: 600;
+	min-width: 0;
+	margin: 0;
+	padding: 0;
+	border: 0;
 }
 
-.product-actions__field select {
-	width: 100%;
-	padding: 0.7rem 0.8rem;
+.product-actions__field legend {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.3rem;
+	margin-bottom: 0.55rem;
+	padding: 0;
+	font-weight: 400;
+}
+
+.product-actions__field legend strong {
+	font-weight: 700;
+}
+
+.product-actions__choices {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+}
+
+.product-actions__choice {
+	min-height: 2.5rem;
+	padding: 0.45rem 0.75rem;
 	border: 1px solid var(--border);
-	border-radius: 8px;
+	border-radius: 6px;
 	background: var(--bg);
 	color: var(--fg);
 	font: inherit;
+	cursor: pointer;
 }
 
-.product-actions__field select:focus {
-	outline: 2px solid var(--btn-primary-bg);
+.product-actions__choice:hover:not(:disabled) {
+	border-color: var(--fg);
+}
+
+.product-actions__choice[aria-pressed='true'] {
+	border: 2px solid color-mix(in srgb, var(--fg) 55%, var(--border));
+	padding: calc(0.45rem - 1px) calc(0.75rem - 1px);
+	background: color-mix(in srgb, var(--fg) 7%, var(--bg));
+	font-weight: 700;
+}
+
+.product-actions__choice:focus-visible,
+.product-actions__button:focus-visible {
+	outline: 2px solid var(--fg);
 	outline-offset: 2px;
 }
 
 .product-actions__button {
-	padding: 0.8rem 1rem;
+	display: inline-flex;
+	gap: 0.5rem;
+	align-items: center;
+	justify-content: center;
+	width: auto;
+	min-height: 2.75rem;
+	padding: 0.65rem 0.9rem;
 	border: 0;
 	border-radius: 8px;
 	background: var(--btn-primary-bg);
@@ -45,11 +89,34 @@
 	cursor: pointer;
 }
 
+.product-actions__button-icon {
+	width: 1.55rem;
+	height: 1.55rem;
+}
+
+.product-actions__button-icon--loading {
+	animation: product-actions-spin 0.8s linear infinite;
+}
+
 .product-actions__button:hover:not(:disabled) {
 	background: var(--btn-primary-bg-hover);
 }
 
+.product-actions__choice:disabled,
 .product-actions__button:disabled {
 	cursor: not-allowed;
 	opacity: 0.55;
+}
+
+@keyframes product-actions-spin {
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+@media (max-width: 600px) {
+	.product-actions__button {
+		width: 100%;
+		min-height: 3rem;
+	}
 }

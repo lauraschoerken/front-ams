@@ -1,5 +1,11 @@
 import '../layout.scss'
 
+import { APP_NAME } from '@/utils/constants'
+
 export const Footer = () => {
-	return <footer className='footer'>React Starter · {new Date().getFullYear()}</footer>
+	return (
+		<footer className='footer'>
+			{APP_NAME} · {new Date().getFullYear()}
+		</footer>
+	)
 }

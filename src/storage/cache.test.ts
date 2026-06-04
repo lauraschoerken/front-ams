@@ -23,11 +23,15 @@ describe('cacheStorage', () => {
 		expect(cacheStorage.get(cacheKey)).toEqual(product)
 	})
 
-	it('removes and ignores an expired value', () => {
+	it('keeps an expired value available for background revalidation', () => {
 		cacheStorage.set(cacheKey, product, 1_000)
 		vi.advanceTimersByTime(1_001)
 
 		expect(cacheStorage.get(cacheKey)).toBeUndefined()
-		expect(window.localStorage.getItem(cacheKey)).toBeNull()
+		expect(cacheStorage.getEntry(cacheKey)).toEqual({
+			value: product,
+			isStale: true,
+		})
+		expect(window.localStorage.getItem(cacheKey)).not.toBeNull()
 	})
 })
