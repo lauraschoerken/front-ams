@@ -3,6 +3,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { cacheStorage } from '@/storage/cache'
 import { createProduct } from '@/test/factories'
 
+import { ApiError } from '../models/api'
 import { requestJson } from './http'
 import { getProducts } from './products'
 
@@ -47,5 +48,11 @@ describe('products cache revalidation', () => {
 		await vi.waitFor(() => expect(cacheStorage.get(cacheKey)).toEqual(products))
 
 		expect(onRevalidated).not.toHaveBeenCalled()
+	})
+
+	it('preserves the API status when loading products fails', async () => {
+		vi.mocked(requestJson).mockRejectedValue(new ApiError('HTTP 500', 500))
+
+		await expect(getProducts()).resolves.toEqual({ error: 'HTTP 500', status: 500 })
 	})
 })

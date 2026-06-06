@@ -1,0 +1,37 @@
+.not-found-page {
+	display: grid;
+	gap: 0.85rem;
+	max-width: 560px;
+	padding-block: clamp(2rem, 8vw, 5rem);
+}
+
+.not-found-page__eyebrow {
+	margin: 0;
+	font-weight: 700;
+	opacity: 0.65;
+}
+
+.not-found-page h1 {
+	margin: 0;
+	font-size: clamp(1.8rem, 4vw, 2.5rem);
+}
+
+.not-found-page p {
+	margin: 0;
+	color: color-mix(in srgb, var(--fg) 78%, var(--bg));
+}
+
+.not-found-page__link {
+	width: fit-content;
+	margin-top: 0.4rem;
+	padding: 0.7rem 0.95rem;
+	border-radius: 8px;
+	background: var(--btn-primary-bg);
+	color: var(--btn-primary-fg);
+	font-weight: 700;
+	text-decoration: none;
+}
+
+.not-found-page__link:hover {
+	background: var(--btn-primary-bg-hover);
+}

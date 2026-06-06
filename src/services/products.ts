@@ -1,4 +1,4 @@
-import type { ApiResult } from '@/models/api'
+import { ApiError, type ApiResult } from '@/models/api'
 import type { ProductDetail, ProductSummary } from '@/models/product'
 import { cacheStorage } from '@/storage/cache'
 
@@ -15,6 +15,8 @@ interface RevalidationResult<T> {
 
 const getErrorMessage = (error: unknown) =>
 	error instanceof Error ? error.message : 'Error desconocido'
+
+const getErrorStatus = (error: unknown) => (error instanceof ApiError ? error.status : undefined)
 
 const fetchAndCache = async <T>(key: string, path: string, signal?: AbortSignal) => {
 	const data = await requestJson<T>(path, { signal })
@@ -65,7 +67,7 @@ export const getProducts = async (
 		return { data: products }
 	} catch (error) {
 		if (signal?.aborted) return {}
-		return { error: getErrorMessage(error) }
+		return { error: getErrorMessage(error), status: getErrorStatus(error) }
 	}
 }
 
@@ -91,6 +93,6 @@ export const getProductById = async (
 		return { data: product }
 	} catch (error) {
 		if (signal?.aborted) return {}
-		return { error: getErrorMessage(error) }
+		return { error: getErrorMessage(error), status: getErrorStatus(error) }
 	}
 }

@@ -7,7 +7,6 @@
 		"error": "No se ha podido añadir el producto al carrito",
 		"success": "Producto añadido al carrito"
 	},
-	"demo": "Ejemplo",
 	"detail": "Detalle",
 	"feedback": {
 		"loadError": "No se han podido cargar los datos",
@@ -22,6 +21,12 @@
 		"next": "Pagina siguiente",
 		"previous": "Pagina anterior",
 		"status": "Pagina {{current}} de {{total}}"
+	},
+	"notFound": {
+		"backToProducts": "Volver al listado de productos",
+		"description": "La ruta que has abierto no existe o ya no esta disponible.",
+		"eyebrow": "404",
+		"title": "Pagina no encontrada"
 	},
 	"product": {
 		"actionsTitle": "Opciones",

@@ -1,7 +1,7 @@
 import i18n from 'i18next'
 import { initReactI18next } from 'react-i18next'
 
-import en from './en' // <- objeto: { common: {...}, demo: {...}, ... }
+import en from './en'
 import es from './es'
 
 const LANGUAGE_KEY = 'lang'
@@ -16,13 +16,8 @@ void i18n.use(initReactI18next).init({
 	},
 	lng: detected,
 	fallbackLng: 'es',
-
-	// 👇 aquí pones varios
-	defaultNS: ['common', 'demo'],
-
-	// 👇 y aquí defines todos los namespaces disponibles
+	defaultNS: 'common',
 	ns: Array.from(new Set([...Object.keys(en), ...Object.keys(es)])),
-
 	interpolation: { escapeValue: false },
 	returnEmptyString: false,
 })

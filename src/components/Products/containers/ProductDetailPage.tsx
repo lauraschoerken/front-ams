@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { useOutletContext, useParams } from 'react-router-dom'
 
 import { EmptyState, ErrorState } from '@/components/elements'
+import { NotFoundPage } from '@/components/NotFound/NotFoundPage'
 import type { ProductDetail } from '@/models/product'
 import { getProductById } from '@/services/products'
 
@@ -24,14 +25,16 @@ export const ProductDetailPage = () => {
 	const [product, setProduct] = useState<ProductDetail | undefined>()
 	const [loading, setLoading] = useState(false)
 	const [error, setError] = useState<string | undefined>()
+	const [notFound, setNotFound] = useState(false)
 
 	const loadProduct = async (signal?: AbortSignal) => {
 		if (!id) return
 
 		setLoading(true)
 		setError(undefined)
+		setNotFound(false)
 
-		const { data, error } = await getProductById(id, signal, setProduct)
+		const { data, error, status } = await getProductById(id, signal, setProduct)
 		if (signal?.aborted) return
 
 		if (data) {
@@ -39,7 +42,11 @@ export const ProductDetailPage = () => {
 		}
 
 		if (error) {
-			setError(error)
+			if (status === 404 || status === 500) {
+				setNotFound(true)
+			} else {
+				setError(error)
+			}
 		}
 
 		setLoading(false)
@@ -62,9 +69,11 @@ export const ProductDetailPage = () => {
 		<section className='product-detail-page'>
 			{loading && !product && <ProductDetailSkeleton label={t('productDetail.loading')} />}
 
+			{notFound && !product && <NotFoundPage />}
+
 			{error && !product && <ErrorState message={error} onRetry={() => void loadProduct()} />}
 
-			{!loading && !error && !product && (
+			{!loading && !error && !notFound && !product && (
 				<EmptyState
 					title={t('productDetail.emptyTitle')}
 					description={t('productDetail.emptyDescription')}

@@ -7,7 +7,6 @@
 		"error": "The product could not be added to the cart",
 		"success": "Product added to cart"
 	},
-	"demo": "Demo",
 	"detail": "Detail",
 	"feedback": {
 		"loadError": "Data could not be loaded",
@@ -22,6 +21,12 @@
 		"next": "Next page",
 		"previous": "Previous page",
 		"status": "Page {{current}} of {{total}}"
+	},
+	"notFound": {
+		"backToProducts": "Back to product list",
+		"description": "The route you opened does not exist or is no longer available.",
+		"eyebrow": "404",
+		"title": "Page not found"
 	},
 	"product": {
 		"actionsTitle": "Options",

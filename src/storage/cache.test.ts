@@ -2,7 +2,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { createProduct } from '@/test/factories'
 
-import { cacheStorage } from './cache'
+import { CACHE_TTL, cacheStorage } from './cache'
 
 describe('cacheStorage', () => {
 	const cacheKey = 'products'
@@ -21,6 +21,16 @@ describe('cacheStorage', () => {
 		cacheStorage.set(cacheKey, product, 1_000)
 
 		expect(cacheStorage.get(cacheKey)).toEqual(product)
+	})
+
+	it('stores an expiration timestamp one hour ahead by default', () => {
+		cacheStorage.set(cacheKey, product)
+
+		const cachedItem = JSON.parse(window.localStorage.getItem(cacheKey) ?? '{}') as {
+			expiresAt: number
+		}
+
+		expect(cachedItem.expiresAt).toBe(Date.now() + CACHE_TTL)
 	})
 
 	it('keeps an expired value available for background revalidation', () => {

@@ -1,10 +1,9 @@
 import { createBrowserRouter } from 'react-router-dom'
 
+import { NotFoundPage } from '@/components/NotFound/NotFoundPage'
 import { ProductDetailPage } from '@/components/Products/containers/ProductDetailPage'
 import { ProductListPage } from '@/components/Products/containers/ProductListPage'
 import { IndexLayout } from '@/layouts'
-
-import Demo from '../components/Demo/containers/Demo'
 
 export const router = createBrowserRouter([
 	{
@@ -13,12 +12,7 @@ export const router = createBrowserRouter([
 		children: [
 			{ index: true, element: <ProductListPage /> },
 			{ path: 'product/:id', element: <ProductDetailPage /> },
-			// { path: '*', element: <NotFound /> },
+			{ path: '*', element: <NotFoundPage /> },
 		],
-	},
-	{
-		path: '/demo',
-		element: <IndexLayout layout='minimal' />,
-		children: [{ index: true, element: <Demo /> }],
 	},
 ])
