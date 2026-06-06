@@ -14,7 +14,12 @@ import { ProductListSkeleton } from '../components/ProductListSkeleton'
 import { Search } from '../components/Search'
 import { filterProducts } from '../utils/filterProducts'
 import { paginateItems } from '../utils/paginateItems'
-import { getPageFromSearchParams, setPageInSearchParams } from '../utils/paginationSearchParams'
+import {
+	getPageFromSearchParams,
+	getSearchFromSearchParams,
+	setPageInSearchParams,
+	setSearchInSearchParams,
+} from '../utils/paginationSearchParams'
 
 const PRODUCTS_PER_PAGE = 16
 
@@ -22,10 +27,10 @@ export const ProductListPage = () => {
 	const { t } = useTranslation()
 	const [searchParams, setSearchParams] = useSearchParams()
 	const [products, setProducts] = useState<ProductSummary[]>([])
-	const [search, setSearch] = useState('')
 	const [loading, setLoading] = useState(false)
 	const [error, setError] = useState<string | undefined>()
 	const page = getPageFromSearchParams(searchParams)
+	const search = getSearchFromSearchParams(searchParams)
 
 	const filteredProducts = useMemo(() => filterProducts(products, search), [products, search])
 	const pagination = useMemo(
@@ -68,8 +73,7 @@ export const ProductListPage = () => {
 	}
 
 	const changeSearch = (value: string) => {
-		setSearch(value)
-		setSearchParams(setPageInSearchParams(searchParams, 1))
+		setSearchParams(setSearchInSearchParams(searchParams, value))
 	}
 
 	useEffect(() => {

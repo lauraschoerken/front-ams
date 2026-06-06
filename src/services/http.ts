@@ -9,13 +9,22 @@ interface RequestOptions extends RequestInit {
 	signal?: AbortSignal
 }
 
+const getRequestHeaders = (headers?: HeadersInit) => {
+	const requestHeaders = new Headers({ 'Content-Type': 'application/json' })
+
+	if (headers) {
+		new Headers(headers).forEach((value, key) => {
+			requestHeaders.set(key, value)
+		})
+	}
+
+	return requestHeaders
+}
+
 export const requestJson = async <T>(path: string, options?: RequestOptions): Promise<T> => {
 	const response = await fetch(`${API_BASE_URL}${path}`, {
-		headers: {
-			'Content-Type': 'application/json',
-			...options?.headers,
-		},
 		...options,
+		headers: getRequestHeaders(options?.headers),
 	})
 
 	if (!response.ok) {
