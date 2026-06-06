@@ -1,6 +1,11 @@
 import { describe, expect, it } from 'vitest'
 
-import { getPageFromSearchParams, setPageInSearchParams } from './paginationSearchParams'
+import {
+	getPageFromSearchParams,
+	getSearchFromSearchParams,
+	setPageInSearchParams,
+	setSearchInSearchParams,
+} from './paginationSearchParams'
 
 describe('paginationSearchParams', () => {
 	it('uses the page query parameter when it is valid', () => {
@@ -21,5 +26,20 @@ describe('paginationSearchParams', () => {
 		expect(setPageInSearchParams(new URLSearchParams('query=acer'), 3).toString()).toBe(
 			'query=acer&page=3'
 		)
+	})
+
+	it('reads the search query from q', () => {
+		expect(getSearchFromSearchParams(new URLSearchParams('q=samsung'))).toBe('samsung')
+		expect(getSearchFromSearchParams(new URLSearchParams())).toBe('')
+	})
+
+	it('stores search in q and resets pagination', () => {
+		expect(setSearchInSearchParams(new URLSearchParams('page=3'), ' samsung ').toString()).toBe(
+			'q=samsung'
+		)
+	})
+
+	it('removes q when search is empty', () => {
+		expect(setSearchInSearchParams(new URLSearchParams('q=acer&page=2'), ' ').toString()).toBe('')
 	})
 })
